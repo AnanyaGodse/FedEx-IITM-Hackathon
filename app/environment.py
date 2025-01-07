@@ -128,6 +128,6 @@ class RouteOptimizationEnv(gym.Env):
         vehicle_type_one_hot = np.zeros(len(VEHICLE_TYPES))
         vehicle_type_one_hot[vehicle_type_index] = 1
 
-        # Create the state representation (now includes weather data and vehicle type)
+        # Create the state representation
         state = np.array([travel_time, emissions, traffic_penalty, air_quality_index] + vehicle_type_one_hot.tolist(), dtype=np.float32)
         return state

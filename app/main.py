@@ -24,20 +24,23 @@ def optimize_route():
     
     # Initialize environment with real-time data (dynamically using user input)
     env = RouteOptimizationEnv(start_lat=start_lat, start_lon=start_lon, end_lat=end_lat, end_lon=end_lon)
+    
+    # Fetch the initial state
     state = env.reset()
 
     # Predict best route based on the environment's current state
     action, _ = model.predict(state)
 
     # Get the route details for the recommended route
-    route_data = get_route_data(action, start_lat, start_lon, end_lat, end_lon)
+    selected_route = env.routes[action]
+    route_data = selected_route['route']  # Get route details from the selected route
     
     if not route_data:
         return jsonify({"error": "Failed to fetch route data"}), 500
 
     # Prepare the response with the recommended route and additional information
     response = {
-        "recommended_route": action,
+        "recommended_route": selected_route['id'],
         "route_details": route_data
     }
 
@@ -45,4 +48,5 @@ def optimize_route():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
 

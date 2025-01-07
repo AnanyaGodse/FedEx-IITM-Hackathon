@@ -1,0 +1,8 @@
+flask
+gym
+stable-baselines3[extra]
+torch
+requests
+pandas
+numpy
+geopy
